@@ -38,3 +38,11 @@ The program can be used in 4 ways.
 Becase k is a constant in practical applications, this means the runtime of this algorithm would theoretically be O(n). However because the point at which 2k and log n would be equal is at very large array sizes, this approach will rarely outperform n log n.
 
 ## Modify the comparison function of a suitable sorting algorithm
+
+For this approach we need a comparison based sorting algorithm. Because we want it to be efficient, we have to pick one that is fast, so we're looking at merge sort, heap sort or quick sort.
+The comparison function will combine the 2 numbers as n1n2 and n2n1 and the resulting numbers will be compared. If n1n2 is bigger, then n1 is returned as the bigger number, otherwise n2.
+Because of the complexity of the comparison operator with this approach, the complexity will be higher by a constant factor.
+
+## Conclusion
+An optimal solution for every situation would be to use the 2nd approach for small datasets and the 1st approach for large datasets.
+In both cases it is very easy to run out of space in even 64 bit integers in even very small datasets, so we will have to operate with strings.
