@@ -53,7 +53,7 @@ int main(int argc, char *argv[]){
 
   ta->printArray();
 
-  int32_t result = 0; //HighestNumberCombination::search(ta->getArray(), ta->len());
+  std::string result = HighestNumberCombination::combine(ta->getArray(), ta->len());;
 
   cout<<"Highest possible number is: "<<result<<endl;
 
