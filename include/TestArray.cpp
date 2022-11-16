@@ -3,7 +3,32 @@
 #include <iostream>
 #include "TestArray.hpp"
 
+#include "HighestNumberCombination.hpp"
+
 using namespace std;
+
+const uint64_t pow10[20] = {
+  1,
+  10,
+  100,
+  1000,
+  10000,
+  100000,
+  1000000,
+  10000000,
+  100000000,
+  1000000000,
+  10000000000,
+  100000000000,
+  1000000000000,
+  10000000000000,
+  100000000000000,
+  1000000000000000,
+  10000000000000000,
+  100000000000000000,
+  1000000000000000000,
+  UINT64_MAX
+};
 
 void TestArray::setDebugLevel(DebugLevel debugLevel)
 {
@@ -53,10 +78,13 @@ TestArray::~TestArray()
 
 void TestArray::generateArray()
 {
-  uniform_int_distribution<uint32_t> uintDist(0, UINT32_MAX);
+  // Add variety to the number length, since that's the tricky part.
+  uint8_t maxLen = 19;
+  uniform_int_distribution<uint32_t> lenDist(1, maxLen);
 
   for(uint32_t i = 0; i < len_; i++){
-    array_[i] = uintDist(rng_);
+    uniform_int_distribution<uint32_t> valDist(0, pow10[lenDist(rng_)]);
+    array_[i] = valDist(rng_);
   }
 }
 
