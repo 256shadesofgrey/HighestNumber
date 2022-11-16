@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <chrono>
 
 #include <sys/select.h>
 
@@ -51,11 +52,17 @@ int main(int argc, char *argv[]){
     }
   }
 
-  ta->printArray();
+  // ta->printArray();
 
-  std::string result = HighestNumberCombination::combine(ta->getArray(), ta->len());;
+  auto start = chrono::high_resolution_clock::now();
 
-  cout<<"Highest possible number is: "<<result<<endl;
+  std::string result = HighestNumberCombination::combine(ta->getArray(), ta->len());
+
+  auto runtime = chrono::high_resolution_clock::now() - start;
+  uint64_t runtime_us = chrono::duration_cast<std::chrono::microseconds>(runtime).count();
+
+  // cout<<"Highest possible number is: "<<result<<endl;
+  cout<<"Execution time: "<<double(runtime_us)/1000000<<"s"<<endl;
 
   return 0;
 }
