@@ -30,8 +30,8 @@ int main(int argc, char *argv[]){
       ta = new TestArray(stoi(argv[2]));
     }
   }else{
-    uint32_t n;
-    vector<uint32_t> buffer;
+    uint64_t n;
+    vector<uint64_t> buffer;
 
     int fd_stdin = fileno(stdin);
     fd_set readfds;

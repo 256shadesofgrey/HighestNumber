@@ -51,31 +51,31 @@ void TestArray::setDebugLevel(DebugLevel debugLevel)
 
 TestArray::TestArray()
 {
-  array_ = new uint32_t[len_];
+  array_ = new uint64_t[len_];
   rng_.seed(rd_());
   generateArray();
 }
 
-TestArray::TestArray(uint32_t len)
+TestArray::TestArray(uint64_t len)
   :len_{len}
 {
-  array_ = new uint32_t[len_];
+  array_ = new uint64_t[len_];
   rng_.seed(rd_());
   generateArray();
 }
 
-TestArray::TestArray(uint32_t len, char *array[])
+TestArray::TestArray(uint64_t len, char *array[])
   :len_{len}
 {
-  array_ = new uint32_t[len];
+  array_ = new uint64_t[len];
   rng_.seed(rd_());
   convertCharArrayToIntArray(len_, array, array_);
 }
 
-TestArray::TestArray(std::vector<uint32_t> values)
+TestArray::TestArray(std::vector<uint64_t> values)
   :len_{(uint32_t)values.size()}
 {
-  array_ = new uint32_t[len_];
+  array_ = new uint64_t[len_];
   rng_.seed(rd_());
   for(uint32_t i = 0; i < len_; i++){
     array_[i] = values[i];
@@ -102,22 +102,22 @@ void TestArray::generateArray()
   }
 }
 
-void TestArray::convertCharArrayToIntArray(uint32_t len, char *charArray[],
-                                           uint32_t *intArray)
+void TestArray::convertCharArrayToIntArray(uint64_t len, char *charArray[],
+                                           uint64_t *intArray)
 {
   for(uint32_t i = 0; i < len; i++){
     intArray[i] = stoi(charArray[i]);
   }
 }
 
-const uint32_t *TestArray::getArray()
+const uint64_t *TestArray::getArray()
 {
   return array_;
 }
 
 void TestArray::printArray()
 {
-  for(uint32_t i = 0; i < len_; i++){
+  for(uint64_t i = 0; i < len_; i++){
     cout<<array_[i]<<" ";
   }
   cout<<endl;
