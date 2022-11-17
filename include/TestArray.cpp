@@ -73,11 +73,11 @@ TestArray::TestArray(uint64_t len, char *array[])
 }
 
 TestArray::TestArray(std::vector<uint64_t> values)
-  :len_{(uint32_t)values.size()}
+  :len_{(uint64_t)values.size()}
 {
   array_ = new uint64_t[len_];
   rng_.seed(rd_());
-  for(uint32_t i = 0; i < len_; i++){
+  for(uint64_t i = 0; i < len_; i++){
     array_[i] = values[i];
   }
 }
@@ -94,10 +94,10 @@ void TestArray::generateArray()
 {
   // Add variety to the number length, since that's the tricky part.
   uint8_t maxLen = 19;
-  uniform_int_distribution<uint32_t> lenDist(1, maxLen);
+  uniform_int_distribution<uint64_t> lenDist(1, maxLen);
 
-  for(uint32_t i = 0; i < len_; i++){
-    uniform_int_distribution<uint32_t> valDist(0, pow10_64[lenDist(rng_)]);
+  for(uint64_t i = 0; i < len_; i++){
+    uniform_int_distribution<uint64_t> valDist(0, HighestNumberCombination::pow10_64[lenDist(rng_)]);
     array_[i] = valDist(rng_);
   }
 }
@@ -105,7 +105,7 @@ void TestArray::generateArray()
 void TestArray::convertCharArrayToIntArray(uint64_t len, char *charArray[],
                                            uint64_t *intArray)
 {
-  for(uint32_t i = 0; i < len; i++){
+  for(uint64_t i = 0; i < len; i++){
     intArray[i] = stoi(charArray[i]);
   }
 }
