@@ -1,10 +1,12 @@
 #include "HighestNumberCombination.hpp"
 
 // #include <chrono>
-// #include <iostream>
+#include <iostream>
 #include <algorithm>
 
 using namespace std;
+
+#define MAX_LEN 19
 
 uint8_t HighestNumberCombination::uintLen(uint64_t num){
   uint8_t len = 0;
@@ -24,42 +26,51 @@ uint8_t HighestNumberCombination::uintLen(uint64_t num){
   return len;
 }
 
-bool HighestNumberCombination::cmp(const string &a, const string &b)
+bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
 {
   // return true if a < b.
-  string ab = a+b;
-  string ba = b+a;
+  uint64_t ab = pow10_64[uintLen(a)]+b;
+  uint64_t ba = pow10_64[uintLen(b)]+a;
 
-  bool result = false;
-
-  if(ab.compare(ba) < 0){
-    result = true;
-  }
-
-  return result;
+  return ab<ba;
 }
 
-vector<string> HighestNumberCombination::uintArrayToStrVector(const uint64_t uintArray[], uint64_t len)
+void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
 {
-  vector<string> result;
+  // cout<<data[0]<<" ";
 
-  for(uint64_t i = 0; i < len; ++i){
-    result.push_back(to_string(uintArray[i]));
+  uint64_t num;
+  uint64_t numLen;
+  for(uint64_t &n : data){
+    num = n;
+    numLen = uintLen(n);
+    n = 0;
+    int8_t remLen = MAX_LEN;
+    while(remLen > 0){
+      remLen -= numLen;
+      if(remLen >= 0){
+        n += num * pow10_64[remLen];
+      }else{
+        n += num / pow10_64[-remLen];
+      }
+    }
   }
 
-  return result;
+  // cout<<data[0]<<endl;
 }
 
 string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
 {
   string result = "";
-  vector<string> data = uintArrayToStrVector(numbers, len);
+  vector<uint64_t> data(numbers, numbers+len);
+
+  prepareRadixSort(data);
 
   // TODO: use radix sort or std::sort depending on the size of the array.
-  sort(data.begin(), data.end(), cmp);
+  // sort(data.begin(), data.end(), cmp);
 
-  for(int i = 0; i < data.size(); ++i){
-    result = data[i]+result;
+  for(uint64_t i = 0; i < data.size(); ++i){
+    result += to_string(data[data.size()-i-1]);
   }
   return result;
 }
