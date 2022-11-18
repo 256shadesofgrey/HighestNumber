@@ -37,8 +37,6 @@ bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
 
 void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
 {
-  // cout<<data[0]<<" ";
-
   uint64_t num;
   uint64_t numLen;
   for(uint64_t &n : data){
@@ -55,8 +53,26 @@ void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
       }
     }
   }
+}
 
-  // cout<<data[0]<<endl;
+void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
+{
+  uint64_t num;
+  uint64_t numLen;
+  for(uint64_t &n : data){
+    num = n;
+    numLen = uintLen(n);
+    n = 0;
+    int8_t remLen = MAX_LEN;
+    while(remLen > 0){
+      remLen -= numLen;
+      if(remLen >= 0){
+        n += num * pow10_64[remLen];
+      }else{
+        n += num / pow10_64[-remLen];
+      }
+    }
+  }
 }
 
 string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
