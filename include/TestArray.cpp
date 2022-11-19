@@ -57,8 +57,8 @@ void TestArray::generateArray()
 {
   // Add variety to the number length, since that's the tricky part.
 
-  // Maximum length of a uint32_t number.
-  uint8_t maxLen = 10;
+  // Maximum length of an uint32_t number with 9 as first digit.
+  uint8_t maxLen = 9;
   uniform_int_distribution<uint64_t> lenDist(1, maxLen);
 
   for(uint64_t i = 0; i < len_; i++){

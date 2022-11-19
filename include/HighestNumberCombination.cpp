@@ -5,9 +5,9 @@
 
 using namespace std;
 
-// We expect numbers with length of 10. Experiments have shown that we can
+// We expect numbers with length of up to 9. Experiments have shown that we can
 // get away with length*2-2 for the radix sort.
-#define MAX_LEN 18
+#define MAX_LEN 16
 
 uint8_t HighestNumberCombination::uintLen(uint64_t num){
   uint8_t len = 0;
