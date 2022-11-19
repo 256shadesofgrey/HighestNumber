@@ -3,12 +3,16 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
+#include <cmath>
 
 using namespace std;
 
 // We expect numbers with length of up to 9. Experiments have shown that we can
 // get away with length*2-2 for the radix sort.
-#define MAX_LEN 16
+#define MAX_LEN (16)
+
+// Corresponds to a 32kb counting array.
+#define MAX_BASE_BITS (22)
 
 uint8_t HighestNumberCombination::uintLen(uint64_t num){
   uint8_t len = 0;
@@ -30,13 +34,13 @@ bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
   return ab<ba;
 }
 
-void HighestNumberCombination::prepareRadixSort(vector<vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len)
+void HighestNumberCombination::prepareRadixSort(vector<vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len, uint8_t maxValLen)
 {
   uint64_t numLen;
   for(uint64_t i = 0; i < len; ++i){
     data[i][1] = numbers[i];
     numLen = uintLen(numbers[i]);
-    int8_t remLen = MAX_LEN;
+    int8_t remLen = maxValLen;
     while(remLen > 0){
       remLen -= numLen;
       if(remLen >= 0){
@@ -84,15 +88,13 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
 }
 
 
-vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint64_t>> *data, vector<vector<uint64_t>> *buffer)
+vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint64_t>> *data, vector<vector<uint64_t>> *buffer, const uint16_t baseBits, const uint16_t maxValBits)
 {
-  // TODO: implement calculation of optimal base.
-  const uint16_t baseBits = 22;
   uint64_t base = (uint64_t)1 << baseBits;
   uint64_t *count = (uint64_t*)calloc(base, sizeof(uint64_t));
   vector<vector<uint64_t>> *tmp;
 
-  for(int16_t remainingBits = 64; remainingBits > 0; remainingBits-=baseBits){
+  for(int16_t remainingBits = maxValBits; remainingBits > 0; remainingBits-=baseBits){
     countSort(*data, *buffer, count, baseBits, base);
 
     memset(count, 0, base*sizeof(uint64_t));
@@ -109,19 +111,31 @@ vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint
   return data;
 }
 
-string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
+string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
 {
   string result = "";
 
-  if(len > 10000000){
+  // if(len > 1000000){
+  if(1){
     vector<vector<uint64_t>> *sorted;
     vector<vector<uint64_t>> data(len, vector<uint64_t>(2));
     vector<vector<uint64_t>> buf(len, vector<uint64_t>(2));
-    prepareRadixSort(data, numbers, len);
-    sorted = radixSort(&data, &buf);
 
-    for(uint64_t i = 0; i < (*sorted).size(); ++i){
-      result += to_string((*sorted)[(*sorted).size()-i-1][1]);
+    // Determine the best parameters for radix sort.
+    uint64_t maxVal = *max_element(numbers, numbers+len);
+    uint8_t maxValLen = (uintLen(maxVal) << 1) - 2;
+    maxValLen = maxValLen > 0 ? maxValLen : 1;
+    uint16_t maxValBits = (uint16_t)ceil(log2(pow10_64[maxValLen]));
+
+    uint16_t lenBits = (uint16_t)ceil(log2(len));
+    uint16_t baseBits = lenBits < MAX_BASE_BITS ? lenBits : MAX_BASE_BITS;
+
+
+    prepareRadixSort(data, numbers, len, maxValLen);
+    sorted = radixSort(&data, &buf, baseBits, maxValBits);
+
+    for(uint64_t i = 0; i < len; ++i){
+      result += to_string((*sorted)[len-i-1][1]);
     }
   }else{
     sort(numbers, numbers+len, cmp);
