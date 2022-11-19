@@ -26,50 +26,28 @@ uint8_t HighestNumberCombination::uintLen(uint64_t num){
   return len;
 }
 
-bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
+bool HighestNumberCombination::cmp(const vector<uint64_t> &a, const vector<uint64_t> &b)
 {
   // return true if a < b.
-  uint64_t ab = pow10_64[uintLen(a)]+b;
-  uint64_t ba = pow10_64[uintLen(b)]+a;
+  uint64_t ab = pow10_64[uintLen(a[0])]+b[0];
+  uint64_t ba = pow10_64[uintLen(b[0])]+a[0];
 
   return ab<ba;
 }
 
-void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
+void HighestNumberCombination::prepareRadixSort(vector<vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len)
 {
-  uint64_t num;
   uint64_t numLen;
-  for(uint64_t &n : data){
-    num = n;
-    numLen = uintLen(n);
-    n = 0;
+  for(uint64_t i = 0; i < len; ++i){
+    data[i][1] = numbers[i];
+    numLen = uintLen(numbers[i]);
     int8_t remLen = MAX_LEN;
     while(remLen > 0){
       remLen -= numLen;
       if(remLen >= 0){
-        n += num * pow10_64[remLen];
+        data[i][0] += numbers[i] * pow10_64[remLen];
       }else{
-        n += num / pow10_64[-remLen];
-      }
-    }
-  }
-}
-
-void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
-{
-  uint64_t num;
-  uint64_t numLen;
-  for(uint64_t &n : data){
-    num = n;
-    numLen = uintLen(n);
-    n = 0;
-    int8_t remLen = MAX_LEN;
-    while(remLen > 0){
-      remLen -= numLen;
-      if(remLen >= 0){
-        n += num * pow10_64[remLen];
-      }else{
-        n += num / pow10_64[-remLen];
+        data[i][0] += numbers[i] / pow10_64[-remLen];
       }
     }
   }
@@ -78,15 +56,15 @@ void HighestNumberCombination::prepareRadixSort(vector<uint64_t> &data)
 string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
 {
   string result = "";
-  vector<uint64_t> data(numbers, numbers+len);
+  vector<vector<uint64_t>> data(len, vector<uint64_t>(2));
 
-  prepareRadixSort(data);
+  prepareRadixSort(data, numbers, len);
 
   // TODO: use radix sort or std::sort depending on the size of the array.
   // sort(data.begin(), data.end(), cmp);
 
   for(uint64_t i = 0; i < data.size(); ++i){
-    result += to_string(data[data.size()-i-1]);
+    result += to_string(data[data.size()-i-1][1]);
   }
   return result;
 }

@@ -7,8 +7,8 @@
 
 class HighestNumberCombination{
 private:
-  static bool cmp(const uint64_t &a, const uint64_t &b);
-  static void prepareRadixSort(std::vector<uint64_t> &data);
+  static bool cmp(const std::vector<uint64_t> &a, const std::vector<uint64_t> &b);
+  static void prepareRadixSort(std::vector<std::vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len);
 
 public:
   constexpr static const uint64_t pow10_64[20] = {
