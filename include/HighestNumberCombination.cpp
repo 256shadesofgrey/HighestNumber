@@ -52,7 +52,7 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
   uint64_t mask = ~((uint64_t)0xFFFFFFFFFFFFFFFF << baseBits);
 
   // Counting the number of times we encounter each digit of the base.
-  for(vector<uint64_t> num : data){
+  for(const vector<uint64_t> &num : data){
     count[num[0]&mask] += 1;
   }
 
