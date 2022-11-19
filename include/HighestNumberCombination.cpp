@@ -86,7 +86,7 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
 vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint64_t>> *data, vector<vector<uint64_t>> *buffer)
 {
   // TODO: implement calculation of optimal base.
-  const uint16_t baseBits = 8;
+  const uint16_t baseBits = 22;
   vector<vector<uint64_t>> *tmp;
 
   for(int16_t remainingBits = 64; remainingBits > 0; remainingBits-=baseBits){
