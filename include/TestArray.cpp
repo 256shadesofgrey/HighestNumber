@@ -62,7 +62,7 @@ void TestArray::generateArray()
   uniform_int_distribution<uint64_t> lenDist(1, maxLen);
 
   for(uint64_t i = 0; i < len_; i++){
-    uniform_int_distribution<uint64_t> valDist(0, HighestNumberCombination::pow10_64[lenDist(rng_)]);
+    uniform_int_distribution<uint64_t> valDist(0, HighestNumberCombination::pow10_64[lenDist(rng_)]-1);
     array_[i] = valDist(rng_);
   }
 }
