@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <algorithm>
+#include <cstring>
 
 using namespace std;
 
@@ -47,10 +48,8 @@ void HighestNumberCombination::prepareRadixSort(vector<vector<uint64_t>> &data, 
   }
 }
 
-void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<vector<uint64_t>> &sorted, const uint64_t baseBits)
+void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<vector<uint64_t>> &sorted, uint64_t *count, const uint64_t baseBits, const uint64_t base)
 {
-  uint64_t base = (uint64_t)1 << baseBits;
-  uint64_t *count = (uint64_t*)calloc(base, sizeof(uint64_t));
   uint64_t mask = ~((uint64_t)0xFFFFFFFFFFFFFFFF << baseBits);
 
   // Counting the number of times we encounter each digit of the base.
@@ -82,8 +81,6 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
     // this digit is stored correctly.
     --count[val];
   }
-
-  free(count);
 }
 
 
@@ -91,16 +88,22 @@ vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint
 {
   // TODO: implement calculation of optimal base.
   const uint16_t baseBits = 22;
+  uint64_t base = (uint64_t)1 << baseBits;
+  uint64_t *count = (uint64_t*)calloc(base, sizeof(uint64_t));
   vector<vector<uint64_t>> *tmp;
 
   for(int16_t remainingBits = 64; remainingBits > 0; remainingBits-=baseBits){
-    countSort(*data, *buffer, baseBits);
+    countSort(*data, *buffer, count, baseBits, base);
+
+    memset(count, 0, base*sizeof(uint64_t));
 
     // Swap pointers to avoid copying the entire vectors.
     tmp = data;
     data = buffer;
     buffer = tmp;
   }
+
+  free(count);
 
   // The loop swapped buffer and data in the last run, so we return data, not buffer.
   return data;
