@@ -52,7 +52,7 @@ public:
 
   static uint8_t uintLen(uint64_t num);
 
-  static std::string combine(const uint64_t numbers[], uint64_t len);
+  static std::string combine(uint64_t numbers[], uint64_t len);
 };
 
 #endif // HIGHEST_NUMBER_COMBINATION_HPP

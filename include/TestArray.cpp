@@ -75,7 +75,7 @@ void TestArray::convertCharArrayToIntArray(uint64_t len, char *charArray[],
   }
 }
 
-const uint64_t *TestArray::getArray()
+uint64_t *TestArray::getArray()
 {
   return array_;
 }

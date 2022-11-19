@@ -124,11 +124,10 @@ string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
       result += to_string((*sorted)[(*sorted).size()-i-1][1]);
     }
   }else{
-    vector<uint64_t> data(numbers, numbers+len);
-    sort(data.begin(), data.end(), cmp);
+    sort(numbers, numbers+len, cmp);
 
-    for(uint64_t i = 0; i < data.size(); ++i){
-      result += to_string(data[data.size()-i-1]);
+    for(uint64_t i = 0; i < len; ++i){
+      result += to_string(numbers[len-i-1]);
     }
   }
 

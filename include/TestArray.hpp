@@ -33,7 +33,7 @@ public:
 
   void setDebugLevel(DebugLevel debugLevel);
 
-  const uint64_t *getArray();
+  uint64_t *getArray();
   uint64_t len() {return len_;};
 
   void printArray();
