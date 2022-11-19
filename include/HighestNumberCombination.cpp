@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <algorithm>
-#include <cstring>
 
 using namespace std;
 
@@ -49,8 +48,7 @@ void HighestNumberCombination::prepareRadixSort(vector<vector<uint64_t>> &data, 
 void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<vector<uint64_t>> &sorted, const uint64_t baseBits)
 {
   uint64_t base = (uint64_t)1 << baseBits;
-  uint64_t count[base];
-  memset(count, 0, base*sizeof(uint64_t));
+  uint64_t *count = (uint64_t*)calloc(base, sizeof(uint64_t));
   uint64_t mask = ~((uint64_t)0xFFFFFFFFFFFFFFFF << baseBits);
 
   // Counting the number of times we encounter each digit of the base.
@@ -80,6 +78,8 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
     // this digit is stored correctly.
     --count[val];
   }
+
+  free(count);
 }
 
 
