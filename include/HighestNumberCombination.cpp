@@ -23,8 +23,10 @@ uint8_t HighestNumberCombination::uintLen(uint64_t num){
 bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
 {
   // return true if a < b.
-  uint64_t ab = pow10_64[uintLen(a)]+b;
-  uint64_t ba = pow10_64[uintLen(b)]+a;
+  volatile uint64_t lena = uintLen(a);
+  volatile uint64_t lenb = uintLen(b);
+  uint64_t ab = a*pow10_64[uintLen(b)]+b;
+  uint64_t ba = b*pow10_64[uintLen(a)]+a;
 
   return ab<ba;
 }
@@ -64,17 +66,19 @@ void HighestNumberCombination::countSort(vector<vector<uint64_t>> &data, vector<
   }
 
   uint64_t val;
+  uint64_t pos;
   // We have to insert the numbers backwards, so we start at index data.size()-1.
   // When i falls below 0 it will loop around to UINT64_MAX, which is always
   // not smaller than data.size(), so we will always exit the loop after
   // data.size() steps.
   for(uint64_t i = data.size()-1; i < data.size(); --i){
     val = data[i][0] & mask;
-    sorted[count[val]] = data[i];
+    pos = count[val]-1;
+    sorted[pos] = data[i];
 
     // Shifting the bits here in preparation for the next digit to avoid
     // having to do another loop just for that.
-    sorted[count[val]][0] >>= baseBits;
+    sorted[pos][0] >>= baseBits;
 
     // Decrement counter so that the next entry with the same value at
     // this digit is stored correctly.
