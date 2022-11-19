@@ -23,8 +23,6 @@ uint8_t HighestNumberCombination::uintLen(uint64_t num){
 bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
 {
   // return true if a < b.
-  volatile uint64_t lena = uintLen(a);
-  volatile uint64_t lenb = uintLen(b);
   uint64_t ab = a*pow10_64[uintLen(b)]+b;
   uint64_t ba = b*pow10_64[uintLen(a)]+a;
 
