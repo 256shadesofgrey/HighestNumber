@@ -7,6 +7,7 @@
 
 class HighestNumberCombination{
 private:
+  static int8_t log2_64(uint64_t n);
   static bool cmp(const uint64_t &a, const uint64_t &b);
   static void prepareRadixSort(std::vector<std::vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len, uint8_t maxValLen);
   static void countSort(std::vector<std::vector<uint64_t>> &data, std::vector<std::vector<uint64_t>> &sorted, uint64_t *count, const uint64_t baseBits, const uint64_t base);

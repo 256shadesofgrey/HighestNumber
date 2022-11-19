@@ -3,7 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
-#include <cmath>
+#include <bit>
 
 using namespace std;
 
@@ -13,6 +13,11 @@ using namespace std;
 
 // Corresponds to a 32kb counting array.
 #define MAX_BASE_BITS (22)
+
+int8_t HighestNumberCombination::log2_64(uint64_t n)
+{
+  return 64-countl_zero(n);
+}
 
 uint8_t HighestNumberCombination::uintLen(uint64_t num){
   uint8_t len = 0;
