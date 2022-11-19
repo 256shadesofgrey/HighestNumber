@@ -20,11 +20,11 @@ uint8_t HighestNumberCombination::uintLen(uint64_t num){
   return len;
 }
 
-bool HighestNumberCombination::cmp(const vector<uint64_t> &a, const vector<uint64_t> &b)
+bool HighestNumberCombination::cmp(const uint64_t &a, const uint64_t &b)
 {
   // return true if a < b.
-  uint64_t ab = pow10_64[uintLen(a[0])]+b[0];
-  uint64_t ba = pow10_64[uintLen(b[0])]+a[0];
+  uint64_t ab = pow10_64[uintLen(a)]+b;
+  uint64_t ba = pow10_64[uintLen(b)]+a;
 
   return ab<ba;
 }
@@ -107,19 +107,25 @@ vector<vector<uint64_t>>* HighestNumberCombination::radixSort(vector<vector<uint
 string HighestNumberCombination::combine(const uint64_t numbers[], uint64_t len)
 {
   string result = "";
-  vector<vector<uint64_t>> data(len, vector<uint64_t>(2));
-  vector<vector<uint64_t>> buf(len, vector<uint64_t>(2));
-  vector<vector<uint64_t>> *sorted;
 
-  prepareRadixSort(data, numbers, len);
-  sorted = radixSort(&data, &buf);
+  if(len > 10000000){
+    vector<vector<uint64_t>> *sorted;
+    vector<vector<uint64_t>> data(len, vector<uint64_t>(2));
+    vector<vector<uint64_t>> buf(len, vector<uint64_t>(2));
+    prepareRadixSort(data, numbers, len);
+    sorted = radixSort(&data, &buf);
 
-  // TODO: use radix sort or std::sort depending on the size of the array.
-  // sort(data.begin(), data.end(), cmp);
-  // sorted = &data;
+    for(uint64_t i = 0; i < (*sorted).size(); ++i){
+      result += to_string((*sorted)[(*sorted).size()-i-1][1]);
+    }
+  }else{
+    vector<uint64_t> data(numbers, numbers+len);
+    sort(data.begin(), data.end(), cmp);
 
-  for(uint64_t i = 0; i < (*sorted).size(); ++i){
-    result += to_string((*sorted)[(*sorted).size()-i-1][1]);
+    for(uint64_t i = 0; i < data.size(); ++i){
+      result += to_string(data[data.size()-i-1]);
+    }
   }
+
   return result;
 }
