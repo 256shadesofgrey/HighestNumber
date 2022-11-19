@@ -18,7 +18,7 @@ int main(int argc, char *argv[]){
     bool firstParamInteger = true;
 
     try{
-      stoi(argv[1]);
+      stoull(argv[1]);
     }catch(invalid_argument){
       firstParamInteger = false;
     }
@@ -28,7 +28,7 @@ int main(int argc, char *argv[]){
       ta = new TestArray(argc-1, &argv[1]);
     }else{
       cout<<"Testing with randomly generated array with given length."<<endl;
-      ta = new TestArray(stoi(argv[2]));
+      ta = new TestArray(stoull(argv[2]));
     }
   }else{
     uint64_t n;

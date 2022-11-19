@@ -71,7 +71,7 @@ void TestArray::convertCharArrayToIntArray(uint64_t len, char *charArray[],
                                            uint64_t *intArray)
 {
   for(uint64_t i = 0; i < len; i++){
-    intArray[i] = stoi(charArray[i]);
+    intArray[i] = stoull(charArray[i]);
   }
 }
 
