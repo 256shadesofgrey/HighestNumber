@@ -142,7 +142,7 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
     uint16_t baseBits = lenBits < MAX_BASE_BITS ? lenBits : MAX_BASE_BITS;
 
     prepareRadixSort(data, numbers, len, maxValLen);
-      sorted = radixSort(data, buf, len, baseBits, maxValBits);
+    sorted = radixSort(data, buf, len, baseBits, maxValBits);
 
     for(uint64_t i = 0; i < len; ++i){
       result += to_string(sorted[len-i-1][1]);
