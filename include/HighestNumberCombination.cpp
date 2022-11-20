@@ -120,8 +120,7 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
 {
   string result = "";
 
-  // if(len > 1000000){
-  if(1){
+  if(len > 18){
     uint64_t **data = (uint64_t**)calloc(len, sizeof(uint64_t*));
     uint64_t **buf = (uint64_t**)calloc(len, sizeof(uint64_t*));
     uint64_t **sorted;
