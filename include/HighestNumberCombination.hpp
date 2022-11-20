@@ -9,9 +9,9 @@ class HighestNumberCombination{
 private:
   static int8_t log2_64(uint64_t n);
   static bool cmp(const uint64_t &a, const uint64_t &b);
-  static void prepareRadixSort(std::vector<std::vector<uint64_t>> &data, const uint64_t numbers[], uint64_t len, uint8_t maxValLen);
-  static void countSort(std::vector<std::vector<uint64_t>> &data, std::vector<std::vector<uint64_t>> &sorted, uint64_t *count, const uint64_t baseBits, const uint64_t base);
-  static std::vector<std::vector<uint64_t>>* radixSort(std::vector<std::vector<uint64_t>> *data, std::vector<std::vector<uint64_t>> *sorted, const uint16_t baseBits, const uint16_t maxValBits);
+  static void prepareRadixSort(uint64_t **data, const uint64_t numbers[], uint64_t len, uint8_t maxValLen);
+  static void countSort(uint64_t **data, uint64_t **sorted, uint64_t len, uint64_t *count, const uint64_t baseBits, const uint64_t base);
+  static uint64_t** radixSort(uint64_t **data, uint64_t **buffer, uint64_t len, const uint16_t baseBits, const uint16_t maxValBits);
 
 public:
   constexpr static const uint64_t pow10_64[20] = {
