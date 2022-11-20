@@ -138,13 +138,6 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
     uint16_t lenBits = (uint16_t)log2_64(len);
     uint16_t baseBits = lenBits < MAX_BASE_BITS ? lenBits : MAX_BASE_BITS;
 
-    // cout<<"maxVal="<<maxVal<<endl;
-    // cout<<"maxValLen="<<+maxValLen<<endl;
-    // cout<<"maxValBits="<<maxValBits<<endl;
-    // cout<<"lenBits="<<lenBits<<endl;
-    // cout<<"baseBits="<<baseBits<<endl;
-
-
     prepareRadixSort(data, numbers, len, maxValLen);
       sorted = radixSort(data, buf, len, baseBits, maxValBits);
 

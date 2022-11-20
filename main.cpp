@@ -24,10 +24,10 @@ int main(int argc, char *argv[]){
     }
 
     if(firstParamInteger){
-      cout<<"Testing with array passed as parameters."<<endl;
+      // cout<<"Testing with array passed as parameters."<<endl;
       ta = new TestArray(argc-1, &argv[1]);
     }else{
-      cout<<"Testing with randomly generated array with given length."<<endl;
+      // cout<<"Testing with randomly generated array with given length."<<endl;
       ta = new TestArray(stoull(argv[2]));
     }
   }else{
@@ -44,10 +44,10 @@ int main(int argc, char *argv[]){
     }
 
     if(buffer.size() > 0){
-      cout<<"Testing with piped values."<<endl;
+      // cout<<"Testing with piped values."<<endl;
       ta = new TestArray(buffer);
     }else{
-      cout<<"Testing with randomly generated array."<<endl;
+      // cout<<"Testing with randomly generated array."<<endl;
       ta = new TestArray();
     }
   }
@@ -62,7 +62,7 @@ int main(int argc, char *argv[]){
   uint64_t runtime_us = chrono::duration_cast<std::chrono::microseconds>(runtime).count();
 
   // cout<<"Highest possible number is: "<<result<<endl;
-  cout<<"Execution time: "<<double(runtime_us)/1000000<<"s"<<endl;
+  cout<<double(runtime_us)/1000<<endl;
 
   return 0;
 }
