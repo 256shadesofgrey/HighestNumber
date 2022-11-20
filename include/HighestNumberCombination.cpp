@@ -14,6 +14,10 @@ using namespace std;
 // Corresponds to a 32kb counting array.
 #define MAX_BASE_BITS (22)
 
+// The number of elements at which radix sort becomes more effective than std::sort.
+// The value was determined experimentally.
+#define N_AT_EQUAL_RUNTIME (18)
+
 int8_t HighestNumberCombination::log2_64(uint64_t n)
 {
   return 64-countl_zero(n);
@@ -120,7 +124,7 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
 {
   string result = "";
 
-  if(len > 18){
+  if(len > N_AT_EQUAL_RUNTIME){
     uint64_t **data = (uint64_t**)calloc(len, sizeof(uint64_t*));
     uint64_t **buf = (uint64_t**)calloc(len, sizeof(uint64_t*));
     uint64_t **sorted;
