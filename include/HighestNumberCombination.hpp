@@ -37,20 +37,6 @@ public:
     UINT64_MAX
   };
 
-  constexpr static const uint32_t pow10_32[11] = {
-    1,
-    10,
-    100,
-    1000,
-    10000,
-    100000,
-    1000000,
-    10000000,
-    100000000,
-    1000000000,
-    UINT32_MAX
-  };
-
   static uint8_t uintLen(uint64_t num);
 
   static std::string combine(uint64_t numbers[], uint64_t len);
