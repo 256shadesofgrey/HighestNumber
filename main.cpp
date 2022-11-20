@@ -61,8 +61,8 @@ int main(int argc, char *argv[]){
   auto runtime = chrono::high_resolution_clock::now() - start;
   uint64_t runtime_us = chrono::duration_cast<std::chrono::microseconds>(runtime).count();
 
-  // cout<<"Highest possible number is: "<<result<<endl;
-  cout<<double(runtime_us)/1000<<endl;
+  cout<<"Highest possible number is: "<<result<<endl;
+  // cout<<double(runtime_us)/1000<<endl;
 
   return 0;
 }
