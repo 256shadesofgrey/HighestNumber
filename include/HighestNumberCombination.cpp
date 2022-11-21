@@ -153,9 +153,6 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
     uint64_t **data = (uint64_t**)calloc(len, sizeof(uint64_t*));
     // Additional array to store partially sorted data after count sort.
     uint64_t **buf = (uint64_t**)calloc(len, sizeof(uint64_t*));
-    // Because of the implementation of radix sort, we don't know if data or buf
-    // holds the actually stored data, so we'll assign the pointer to this.
-    uint64_t **sorted;
     // Allocating memory for the actual data. Only need to do it once for the
     // data array, and the rest of the operation will work by swapping pointers
     // with buf.
@@ -187,12 +184,12 @@ string HighestNumberCombination::combine(uint64_t numbers[], uint64_t len)
     // Populate the data array with the numbers that have to be sorted.
     prepareRadixSort(data, numbers, len, maxValLen);
     // Perform radix sort on the data array.
-    sorted = radixSort(data, buf, len, baseBits, maxValBits);
+    data = radixSort(data, buf, len, baseBits, maxValBits);
 
     // Put the sorted data into a string that represents the number we're
     // looking for.
     for(uint64_t i = 0; i < len; ++i){
-      result += to_string(sorted[len-i-1][1]);
+      result += to_string(data[len-i-1][1]);
     }
 
     // Free the previously allocated memory.
