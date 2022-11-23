@@ -11,7 +11,7 @@ using namespace std;
 // get away with length*2-2 for the radix sort.
 #define MAX_LEN (16)
 
-// Corresponds to a 32kb counting array.
+// Corresponds to a 32MB counting array.
 #define MAX_BASE_BITS (22)
 
 // The number of elements at which radix sort becomes more effective than std::sort.
